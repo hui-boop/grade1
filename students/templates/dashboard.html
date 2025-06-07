@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+
+{% block title %}仪表盘{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>仪表盘</h2>
+    <span class="text-muted">欢迎, {{ session.fullname }}</span>
+</div>
+
+{% if role == 'teacher' %}
+<div class="row mb-4">
+    <div class="col-md-6">
+        <div class="card text-center">
+            <div class="card-body">
+                <h5 class="card-title">课程数量</h5>
+                <h1 class="display-4">{{ course_count }}</h1>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card text-center">
+            <div class="card-body">
+                <h5 class="card-title">学生数量</h5>
+                <h1 class="display-4">{{ student_count }}</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card mb-4">
+    <div class="card-header">
+        <h5 class="mb-0">课程平均分</h5>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>课程名称</th>
+                        <th>平均分</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for course in course_avg %}
+                    <tr>
+                        <td>{{ course.course_name }}</td>
+                        <td>{{ course.avg_grade | round(2) }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% else %}
+<div class="row mb-4">
+    <div class="col-md-4">
+        <div class="card text-center bg-primary text-white">
+            <div class="card-body">
+                <h5 class="card-title">平均成绩</h5>
+                <h1 class="display-4">{{ avg_grade }}</h1>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">最近成绩</h5>
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>课程代码</th>
+                                <th>课程名称</th>
+                                <th>成绩</th>
+                                <th>学期</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for grade in grades[:3] %}
+                            <tr>
+                                <td>{{ grade.course_code }}</td>
+                                <td>{{ grade.course_name }}</td>
+                                <td>{{ grade.grade }}</td>
+                                <td>{{ grade.semester }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card mb-4">
+    <div class="card-header">
+        <h5 class="mb-0">所有成绩</h5>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>课程代码</th>
+                        <th>课程名称</th>
+                        <th>成绩</th>
+                        <th>学期</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for grade in grades %}
+                    <tr>
+                        <td>{{ grade.course_code }}</td>
+                        <td>{{ grade.course_name }}</td>
+                        <td>{{ grade.grade }}</td>
+                        <td>{{ grade.semester }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

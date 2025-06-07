@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block title %}课程管理{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">课程管理</h2>
+
+<div class="card mb-4">
+    <div class="card-header">
+        <h5 class="mb-0">添加新课程</h5>
+    </div>
+    <div class="card-body">
+        <form method="POST">
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label for="course_code" class="form-label">课程代码</label>
+                    <input type="text" class="form-control" id="course_code" name="course_code" required>
+                </div>
+                <div class="col-md-5 mb-3">
+                    <label for="course_name" class="form-label">课程名称</label>
+                    <input type="text" class="form-control" id="course_name" name="course_name" required>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label for="credit" class="form-label">学分</label>
+                    <input type="number" class="form-control" id="credit" name="credit" min="1" max="10" value="3" required>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">添加课程</button>
+        </form>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <h5 class="mb-0">我的课程</h5>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>课程代码</th>
+                        <th>课程名称</th>
+                        <th>学分</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for course in courses %}
+                    <tr>
+                        <td>{{ course.course_code }}</td>
+                        <td>{{ course.course_name }}</td>
+                        <td>{{ course.credit }}</td>
+                        <td>
+                            <a href="#" class="btn btn-sm btn-outline-primary">编辑</a>
+                            <a href="#" class="btn btn-sm btn-outline-danger">删除</a>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="4" class="text-center">暂无课程</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

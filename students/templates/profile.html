@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block title %}个人资料{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">个人资料</h2>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">个人信息</h5>
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    <div class="mb-3">
+                        <label for="username" class="form-label">用户名</label>
+                        <input type="text" class="form-control" id="username" value="{{ user.username }}" readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label for="fullname" class="form-label">姓名</label>
+                        <input type="text" class="form-control" id="fullname" name="fullname" value="{{ user.fullname }}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="role" class="form-label">角色</label>
+                        <input type="text" class="form-control" id="role" value="{{ user.role }}" readonly>
+                    </div>
+                    
+                    <h5 class="mt-4 mb-3">修改密码</h5>
+                    <div class="mb-3">
+                        <label for="current_password" class="form-label">当前密码</label>
+                        <input type="password" class="form-control" id="current_password" name="current_password">
+                    </div>
+                    <div class="mb-3">
+                        <label for="new_password" class="form-label">新密码</label>
+                        <input type="password" class="form-control" id="new_password" name="new_password">
+                    </div>
+                    <div class="mb-3">
+                        <label for="confirm_password" class="form-label">确认新密码</label>
+                        <input type="password" class="form-control" id="confirm_password" name="confirm_password">
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">更新资料</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">系统信息</h5>
+            </div>
+            <div class="card-body">
+                <div class="alert alert-info">
+                    <h6>使用说明</h6>
+                    <ul class="mb-0">
+                        <li>教师可以管理课程、学生和成绩</li>
+                        <li>学生可以查看自己的成绩</li>
+                        <li>系统提供成绩统计分析功能</li>
+                    </ul>
+                </div>
+                <div class="alert alert-warning">
+                    <h6>注意事项</h6>
+                    <ul class="mb-0">
+                        <li>请定期修改密码以保证账户安全</li>
+                        <li>成绩录入后需谨慎修改</li>
+                        <li>如有问题请联系系统管理员</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

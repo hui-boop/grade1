@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block title %}成绩分析{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">成绩分析</h2>
+
+<div class="card mb-4">
+    <div class="card-header">
+        <h5 class="mb-0">选择课程</h5>
+    </div>
+    <div class="card-body">
+        <form class="row g-3">
+            <div class="col-md-6">
+                <label for="course_select" class="form-label">选择课程</label>
+                <select class="form-select" id="course_select" name="course_id" onchange="this.form.submit()">
+                    {% for course in courses %}
+                    <option value="{{ course.id }}" {% if course.id | string == selected_course %}selected{% endif %}>
+                        {{ course.course_name }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% if plot_url %}
+<div class="row mb-4">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">成绩分布图</h5>
+            </div>
+            <div class="card-body text-center">
+                <img src="data:image/png;base64,{{ plot_url }}" alt="成绩分布" class="img-fluid">
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">成绩统计</h5>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <h6>平均分</h6>
+                    <h2>{{ avg_grade }}</h2>
+                </div>
+                <div class="mb-3">
+                    <h6>最高分</h6>
+                    <h2>{{ max_grade }}</h2>
+                </div>
+                <div class="mb-3">
+                    <h6>最低分</h6>
+                    <h2>{{ min_grade }}</h2>
+                </div>
+                <div>
+                    <h6>及格率</h6>
+                    <h2>{{ pass_rate }}%</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% else %}
+<div class="alert alert-info">
+    没有可用的成绩数据进行分析
+</div>
+{% endif %}
+{% endblock %}
